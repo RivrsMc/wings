@@ -42,6 +42,7 @@ func Configure(m *wserver.Manager, client remote.Client) *gin.Engine {
 	// These routes use signed URLs to validate access to the resource being requested.
 	router.GET("/download/backup", getDownloadBackup)
 	router.GET("/download/file", getDownloadFile)
+	router.GET("/download/stream", getDownloadStream)
 	router.POST("/upload/file", postServerUploadFiles)
 
 	// This route is special it sits above all the other requests because we are
@@ -88,6 +89,7 @@ func Configure(m *wserver.Manager, client remote.Client) *gin.Engine {
 		files := server.Group("/files")
 		{
 			files.GET("/contents", getServerFileContents)
+			files.GET("/search", getServerFilesSearch)
 			files.GET("/list-directory", getServerListDirectory)
 			files.PUT("/rename", putServerRenameFiles)
 			files.POST("/copy", postServerCopyFile)
